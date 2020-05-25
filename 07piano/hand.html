@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <title>Handtrack.js : A library for prototyping realtime handtracking in the browser. </title>
+</head>
+
+<body class="bx--body p20">
+  <!-- <img id="img" src="hand.jpg"/>  -->
+  <div class="p20">
+    Handtrack.js allows you prototype handtracking interactions in the browser in 3 lines of code.
+  </div>
+  <div class="mb10">
+    <div id="updatenote" class="updatenote mt10"> loading model ..</div>
+  </div>
+  <video class="videobox canvasbox" autoplay="autoplay" id="myvideo"></video>
+  <canvas id="canvas" class="border canvasbox"></canvas>
+
+  <script src="https://unpkg.com/carbon-components@latest/scripts/carbon-components.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/handtrackjs@latest/dist/handtrack.min.js"> </script>
+  <script>
+    const video = document.getElementById("myvideo");
+    const handimg = document.getElementById("handimage");
+    const canvas = document.getElementById("canvas");
+    const context = canvas.getContext("2d");
+    let updateNote = document.getElementById("updatenote");
+    video.style.display = "none"
+
+    let imgindex = 1
+    let isVideo = false;
+    let model = null;
+
+    const modelParams = {
+      maxNumBoxes: 2,      
+      iouThreshold: 0.5,   
+      scoreThreshold: 0.75
+    }
+
+    function startVideo() {
+      video.width = video.width || 640;
+      video.height = video.height || video.width * (3 / 4)
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+          window.localStream = stream;
+          video.srcObject = stream
+          video.onloadedmetadata = (status) => {
+            video.play()
+            if (status) {
+              updateNote.innerText = "Video started. Now tracking"
+              isVideo = true
+              runDetection()
+            } else {
+              updateNote.innerText = "Please enable video"
+            }
+          }
+        })
+    }
+    function toggleVideo() {
+      if (!isVideo) {
+        updateNote.innerText = "Starting video"
+        startVideo();
+      } else {
+        updateNote.innerText = "Stopping video"
+        handTrack.stopVideo(video)
+        isVideo = false;
+        updateNote.innerText = "Video stopped"
+      }
+    }
+
+
+    function runDetection() {
+      model.detect(video).then(predictions => {
+        console.log("Predictions: ", predictions);
+        model.renderPredictions(predictions, canvas, context, video);
+        if (isVideo) {
+          requestAnimationFrame(runDetection);
+        }
+      });
+    }
+
+
+    // Load the model.
+    handTrack.load(modelParams).then(lmodel => {
+      // detect objects in the image.
+      model = lmodel
+      updateNote.innerText = "Loaded Model!"
+      startVideo();
+    });
+  </script>
+</body>
+
+</html>

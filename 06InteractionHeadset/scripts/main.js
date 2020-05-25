@@ -2,21 +2,37 @@
 var rotationSpeed = 0.001;
 var myOtherBox = document.getElementById('myOtherBox');
 
-function spin(){
+
+
+
+function spin() {
 	myOtherBox.object3D.rotation.x += rotationSpeed;
 	myOtherBox.object3D.rotation.y += rotationSpeed;
-	myOtherBox.object3D.rotation.z += rotationSpeed/2;
+	myOtherBox.object3D.rotation.z += rotationSpeed / 2;
 	//console.log(myOtherBox.object3D.rotation);
 }
 setInterval(spin, 10);
 
 
-myOtherBox.addEventListener('mouseenter', function(){
+// // You can also set which camera to use (front/back/etc)
+// navigator.mediaDevices
+// 	.getUserMedia({
+// 		video: { facingMode: { exact: "environment" } }
+// 	})
+// 	.then(stream => {
+// 		let $video = document.querySelector('video')
+// 		$video.srcObject = stream
+// 		$video.onloadedmetadata = () => {
+// 			$video.play()
+// 		}
+// 	})
+
+myOtherBox.addEventListener('mouseenter', function () {
 	rotationSpeed = 0.01;
 	console.log('entered');
 });
 
-myOtherBox.addEventListener('mouseleave', function(){
+myOtherBox.addEventListener('mouseleave', function () {
 	rotationSpeed = 0.001;
 	console.log('left');
 });
@@ -25,7 +41,7 @@ myOtherBox.addEventListener('mouseleave', function(){
 
 
 /*
- * click-events can use a fuse (default on mobile). So the event only fires, if the cursor is on the object for a specified time. 
+ * click-events can use a fuse (default on mobile). So the event only fires, if the cursor is on the object for a specified time.
  */
 
 // var growspeed = 1.2;
