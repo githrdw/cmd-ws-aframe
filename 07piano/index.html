@@ -12,16 +12,28 @@
 </head>
 
 <body>
-  <a-scene>
+  <a-scene debug>
     <a-entity hand></a-entity>
     <a-assets>
       <video id="webcam" src="#"></video>
     </a-assets>
     <a-camera>
-      <a-video id="ground" height="30" width="40" position="0 0 -15" material="src: #webcam"></a-video>
+      <a-video id="ground" height="40" width="53" position="0 0 -20" material="src: #webcam"></a-video>
     </a-camera>
     <!-- <a-torus color="green" rotation="90 0 0" position="0 0 0" segments-tubular="50" radius="1" id="thor"></a-torus> -->
-    <a-torus color="green" rotation="00 0 0" position="0 0 -10" segments-tubular="50" radius="1" height="1" id="thor"></a-torus>
+    <a-torus color="green" rotation="00 0 0" position="0 0 -15" segments-tubular="50" radius=".1" id="thor">
+    </a-torus>
+    <!-- <a-torus color="green" rotation="00 0 0" position="0 0 -15" segments-tubular="50" radius="1" height=".0001" id="thor2">
+    </a-torus> -->
+    <a-box color="white" position="10.4 10 -17" height="5" width="2.8"></a-box>
+    <a-box color="white" position="7.5 10 -17" height="5" width="2.8"></a-box>
+    <a-box color="black" position="5 10 -17" height="5" width="2"></a-box>
+    <a-box color="white" position="2.5 10 -17" height="5" width="2.8"></a-box>
+    <a-box color="black" position="0 10 -17" height="5" width="2"></a-box>
+    <a-box color="white" position="-2.5 10 -17" height="5" width="2.8"></a-box>
+    <a-box color="white" position="-5.4 10 -17" height="5" width="2.8"></a-box>
+    <a-box color="black" position="-7.9 10 -17" height="5" width="2"></a-box>
+    <a-box color="white" position="-10.4 10 -17" height="5" width="2.8"></a-box>
   </a-scene>
 </body>
 
